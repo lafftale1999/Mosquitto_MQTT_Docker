@@ -1,19 +1,28 @@
 services:
   mosquitto:
-    image: eclipse-mosquitto
-    container_name:  mosquitto
+    build: .
+    environment:
+      - BROKER_IP=192.168.61.111
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 9001:9001
     volumes:
       - ./config:/mosquitto/config
       - ./data:/mosquitto/data
       - ./log:/mosquitto/log
       - ./certs:/mosquitto/certs
-
-    ports:
-      - 1883:1883
-      - 9001:9001
-      - 8883:8883
-
-    stdin_open: true
-    tty: true
-
-    
+      - ./generate-broker-cert.sh:/mosquitto/generate-broker-cert.sh
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo "Waiting for generate-broker-cert.sh..."
+        while [ ! -f /mosquitto/generate-broker-cert.sh ]; do
+          sleep 1
+        done
+        echo "Script found - running..."
+        chmod +x /mosquitto/generate-broker-cert.sh
+        /mosquitto/generate-broker-cert.sh
+        mosquitto -c /mosquitto/config/mosquitto.conf
