@@ -55,12 +55,13 @@ Navigate to the root of this directory `/MOSQUITTO_MQTT_DOCKER` and run the foll
 `docker compose up --build -d`
 
 #### To use Port 8883 or 9001
-You will need to add some credentials to the pwfile. This is accomplished by:
+You will need to add some credentials to the pwfile. This is accomplished by following these instructions when the container is running:
 
-1. Open the shell connection to the broker `docker exec -it mosquitto sh`
-2. Add a new user `mosquitto_passwd -c /mosquitto/config/pwfile username`
-3. Enter password
-4. Exit the shell by entering `exit`
+1. Navigate to `/MOSQUITTO_MQTT_DOCKER/config/mosquitto.conf`
+2. Change `CLIENT_NAME`and `CLIENT_PASSWORD`
+3. If you want to generate client certificates and keys - set `GEN_CLIENT` to `1`
+
+*The container will generate new broker and client credentials every time its run, but as long as the certificate's are signed by the same CA and the client certificates CN exists in `config/pwfile`, the connection will still work. As long a there is a ca.crt and ca.key in `config/certs` a new CA will not be generated.*
 
 ### 4. Test the connection
 To test the connection you can open another terminal and use this command:

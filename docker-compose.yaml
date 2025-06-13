@@ -13,6 +13,7 @@ services:
       - ./data:/mosquitto/data
       - ./log:/mosquitto/log
       - ./certs:/mosquitto/certs
+      - ./client_cert:/mosquitto/client_cert
     entrypoint:
       - /bin/sh
       - -c
