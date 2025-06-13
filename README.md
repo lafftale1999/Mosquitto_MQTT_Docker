@@ -27,7 +27,7 @@ To be able to communicate with the broker you can either:
 Open `docker-compose.yaml` and change `BROKER_IP` to your current IP-address. This is important for generating correct broker certificates.
 
 ### 2. Connection settings
-The following settings are configured in `/MOSQUITTO_MQTT_DOCKER/config/mosquitto.conf`.
+The following settings are configured in `/Mosquitto_MQTT_Docker/config/mosquitto.conf`.
 
 #### PORT 1883
 This port accepts all MQTT connections without any validations. 
@@ -38,26 +38,26 @@ This port accepts all MQTT connections without any validations.
 Requires client certificate and key for TLS. The client certificate must:
 
 - Be signed by the same CA as the `broker.crt`
-- Have a Common Name matching a user in `/MOSQUITTO_MQTT_DOCKER/config/pwfile`
+- Have a Common Name matching a user in `/Mosquitto_MQTT_Docker/config/pwfile`
 
 If you are using DNS you will need to add it under `[alt_names]` in `generate_certs.sh`
 
 `allow_anonymous false` `require_certificate true` `use_identity_as_username true`
 
 #### Port 9001
-This port requires the client to provide a username and password that matches a pair in `MOSQUITTO_MQTT_DOCKER/config/pwfile`. This particular Port is set for websocket connections like browsers.
+This port requires the client to provide a username and password that matches a pair in `Mosquitto_MQTT_Docker/config/pwfile`. This particular Port is set for websocket connections like browsers.
 
 `allow_anonymous false` `protocol websockets`
 
 ### 3. Build the project
-Navigate to the root of this directory `/MOSQUITTO_MQTT_DOCKER` and run the following command:
+Navigate to the root of this directory `/Mosquitto_MQTT_Docker` and run the following command:
 
 `docker compose up --build -d`
 
 #### To use Port 8883 or 9001
 You will need to add some credentials to the pwfile. This is accomplished by following these instructions when the container is running:
 
-1. Navigate to `/MOSQUITTO_MQTT_DOCKER/config/mosquitto.conf`
+1. Navigate to `/Mosquitto_MQTT_Docker/config/mosquitto.conf`
 2. Change `CLIENT_NAME`and `CLIENT_PASSWORD`
 3. If you want to generate client certificates and keys - set `GEN_CLIENT` to `1`
 

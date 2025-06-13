@@ -4,7 +4,7 @@ set -e
 CERT_DIR=/mosquitto/certs
 IP=${BROKER_IP:-$(ip route get 1 | awk '{print $7; exit}')}
 CN="mqtt-broker"
-GEN_CLIENT=0
+GEN_CLIENT=1
 CLIENT_DIR=/mosquitto/client_cert
 CLIENT_NAME="example"
 CLIENT_PASSWORD="example123"
