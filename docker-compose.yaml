@@ -2,7 +2,7 @@ services:
   mosquitto:
     build: .
     environment:
-      - BROKER_IP=192.168.61.111
+      - BROKER_IP=127.0.0.0
     container_name: mosquitto
     ports:
       - 1883:1883
@@ -13,16 +13,10 @@ services:
       - ./data:/mosquitto/data
       - ./log:/mosquitto/log
       - ./certs:/mosquitto/certs
-      - ./generate-broker-cert.sh:/mosquitto/generate-broker-cert.sh
     entrypoint:
       - /bin/sh
       - -c
       - |
-        echo "Waiting for generate-broker-cert.sh..."
-        while [ ! -f /mosquitto/generate-broker-cert.sh ]; do
-          sleep 1
-        done
-        echo "Script found - running..."
-        chmod +x /mosquitto/generate-broker-cert.sh
-        /mosquitto/generate-broker-cert.sh
+        echo "Running generate-certs.sh from image..."
+        /mosquitto/scripts/generate-certs.sh
         mosquitto -c /mosquitto/config/mosquitto.conf
