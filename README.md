@@ -57,7 +57,7 @@ Navigate to the root of this directory `/Mosquitto_MQTT_Docker` and run the foll
 #### To use Port 8883 or 9001
 Before you build the project, you will need to add some credentials to the pwfile. This is accomplished by doing the following:
 
-1. Navigate to `/Mosquitto_MQTT_Docker/config/mosquitto.conf`
+1. Navigate to `/Mosquitto_MQTT_Docker/scripts/generate-certs.sh`
 2. Change `CLIENT_NAME`and `CLIENT_PASSWORD`
 3. If you want to generate client certificates and keys set `GEN_CLIENT` to `1`
 
